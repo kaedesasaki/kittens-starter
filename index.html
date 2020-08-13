@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- 
+
     <style>
         .container {
             display: flex;
@@ -28,7 +28,7 @@
         }
 
 
-    </style> -->
+    </style>
 
 
 
@@ -36,39 +36,58 @@
 </head>
 <body>
     <div class="container">
-        <div class="item">
-            <img src="img/0.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="img/1.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="img/2.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="img/3.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="img/4.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="img/5.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="img/6.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="7.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="8.jpeg" alt="">
-        </div>
-        <div class="item">
-            <img src="9.jpeg" alt="">
-        </div>
+
     </div>
 
+    <script>
 
+        //make a constant to hold the number of images.  if we want to add more images we can change this.
+        const numImgs = 10;
+        //create an array to hold the image paths
+        const imgPaths = Array.from({ length: numImgs });
+        //iterate over the imgPaths array.
+        //the function in .forEach takes two values, the first is the item,
+        //the second is which item in the array it is, ie the index.
+        imgPaths.forEach((e,i) => {
+            imgPaths[i]=`img/${i}.jpeg`;
+            });
+            //let's log this out so we can be sure it's working.
+        console.log(imgPaths);
+        //let's do a naive shuffle of the paths
+        imgPaths.sort((a,b) => (0.5 - Math.random()) );
+        //huh?  don't worry about it for now!
+        //now create our divs
+        const makeDiv = () => document.createElement('div');
+        const divs = Array.from({ length: numImgs }, ()=> makeDiv());
+        divs.forEach(div=>div.className='item');
+        //create our img tags and add one image path to each one
+        const makeImg = () => document.createElement('img');
+        const imgs = Array.from({ length: numImgs }, ()=>makeImg());
+        imgs.forEach((img, i) => img.src=imgPaths[i]);
+        //let's grab a reference to the container
+        const container = document.querySelector('.container');
+        //now let's add all these parts together
+        divs.forEach((div, i)=>{
+            div.appendChild(imgs[i]);
+            container.appendChild(div);
+            
+        })
+
+        //and finally, if you've read this far, here's another and better algorithm for shuffling the images.
+        //i wanted to use a one-liner for brevity up above but, this is better in ways that maybe don't matter that much.
+        //if it makes sense to you then, great, if not, we'll maybe get a chance to talk about algorithms later in
+        //the class.  but....you don't really need to be thinking about them yet!
+        // const shuffleArray = (array) => {
+        //     for(let i = array.length  - 1; i > 0; i--){
+        //         const j = Math.floor(Math.random() * i)
+        //         const temp = array[i]
+        //         array[i] = array[j]
+        //         array[j] = temp
+        //         }
+        //         return array
+        // }
+
+    </script>
 
 </body>
 </html>
